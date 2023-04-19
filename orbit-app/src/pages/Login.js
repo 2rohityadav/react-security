@@ -10,7 +10,7 @@ import FormError from './../components/FormError';
 import GradientBar from './../components/common/GradientBar';
 import { AuthContext } from '../context/AuthContext';
 import { publicFetch } from './../util/fetch';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import GradientButton from '../components/common/GradientButton';
 import logo from './../images/logo.png';
 
@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <>
-      {redirectOnLogin && <Redirect to="/dashboard" />}
+      {redirectOnLogin && <Navigate to="/dashboard" />}
       <section className="w-full sm:w-1/2 h-screen m-auto p-8 sm:pt-10">
         <GradientBar />
         <Card>
@@ -69,7 +69,7 @@ const Login = () => {
                 <p className="text-gray-600 text-center">
                   Don't have an account?{' '}
                   <Hyperlink
-                    to="signup"
+                    to="/signup"
                     text="Sign up now"
                   />
                 </p>
@@ -121,7 +121,7 @@ const Login = () => {
                     <div className="mt-6 flex justify-start">
                       <div className="text-sm leading-5">
                         <Hyperlink
-                          to="forgot-password"
+                          to="/forgot-password"
                           text="Forgot your password?"
                         />
                       </div>

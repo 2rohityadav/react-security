@@ -14,45 +14,47 @@ const UserDetailLabel = ({ text }) => (
   </p>
 );
 const UserDetail = ({ user }) => (
-  <Card>
-    <div className="flex">
-      <div className="w-24">
-        <img
-          src={user.avatar || defaultAvatar}
-          alt="avatar"
-        />
-      </div>
+  <div className='grid mb-4'>
+    <Card>
+      <div className="flex">
+        <div className="w-24">
+          <img
+            src={user.avatar || defaultAvatar}
+            alt="avatar"
+          />
+        </div>
 
-      <div>
-        <p className="font-bold text-lg">
-          {user.firstName} {user.lastName}
-        </p>
+        <div>
+          <p className="font-bold text-lg">
+            {user.firstName} {user.lastName}
+          </p>
 
-        <div className="mt-2">
-          <UserDetailLabel text="Bio" />
-          {user.bio ? (
-            <div
-              dangerouslySetInnerHTML={{ __html: user.bio }}
-            />
-          ) : (
-            <p className="text-gray-500 italic">
-              No bio set
-            </p>
-          )}
+          <div className="mt-2">
+            <UserDetailLabel text="Bio" />
+            {user.bio ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: user.bio }}
+              />
+            ) : (
+              <p className="text-gray-500 italic">
+                No bio set
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  </Card>
+    </Card>
+  </div>
 );
 
 const Users = () => {
-  const fetchContext = useContext(FetchContext);
+  const { authAxios } = useContext(FetchContext);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const { data } = await fetchContext.authAxios.get(
+        const { data } = await authAxios.get(
           'users'
         );
         setUsers(data.users);
@@ -61,17 +63,15 @@ const Users = () => {
       }
     };
     getUsers();
-  }, [fetchContext.authAxios]);
+  }, [authAxios]);
 
   return (
     <>
       <PageTitle title="Users" />
       <div className="flex flex-col">
         {!!users.length &&
-          users.map(user => (
-            <div className="m-2">
-              <UserDetail key={user._id} user={user} />
-            </div>
+          users?.map(user => (
+            <UserDetail key={user._id} user={user} />
           ))}
       </div>
     </>

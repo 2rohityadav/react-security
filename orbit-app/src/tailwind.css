@@ -85,7 +85,8 @@ a {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
 }
 
 /**
@@ -653,8 +654,6 @@ video {
 }
 
 .appearance-none {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
 }
 
@@ -10959,8 +10958,6 @@ video {
   }
 
   .sm\:appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
   }
 
@@ -21266,8 +21263,6 @@ video {
   }
 
   .md\:appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
   }
 
@@ -31573,8 +31568,6 @@ video {
   }
 
   .lg\:appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
   }
 
@@ -41880,8 +41873,6 @@ video {
   }
 
   .xl\:appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
   }
 
