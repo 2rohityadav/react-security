@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const jwt = require('express-jwt');
+const { expressjwt: jwt } = require("express-jwt");
 const jwtDecode = require('jwt-decode');
 const mongoose = require('mongoose');
 
@@ -135,6 +135,13 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
+const requireAuth = jwt({
+  secret: process.env.JWT_SECRET,
+  audience: 'api.orbit',
+  issuer: 'api.orbit',
+  algorithms: ['HS256'] // or the algorithm you're using to sign your JWTs
+});
+
 const attachUser = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -155,12 +162,6 @@ const attachUser = (req, res, next) => {
 };
 
 app.use(attachUser);
-
-const requireAuth = jwt({
-  secret: process.env.JWT_SECRET,
-  audience: 'api.orbit',
-  issuer: 'api.orbit'
-});
 
 const requireAdmin = (req, res, next) => {
   const { role } = req.user;
@@ -328,8 +329,7 @@ async function connect() {
     mongoose.Promise = global.Promise;
     await mongoose.connect(process.env.ATLAS_URL, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
+      useUnifiedTopology: true
     });
   } catch (err) {
     console.log('Mongoose error', err);
